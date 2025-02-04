@@ -1,0 +1,22 @@
+@HOST=http://localhost:8080
+
+POST {{HOST}}/users HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "example",
+  "email": "example@gmail.com",
+  "password": "example"
+}
+
+###
+POST {{HOST}}/auth HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "example@gmail.com",
+  "password": "example"
+}
+###
+
+GET {{HOST}}/auth HTTP/1.1
