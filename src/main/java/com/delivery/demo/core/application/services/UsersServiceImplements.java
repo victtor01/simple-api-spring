@@ -15,7 +15,6 @@ public class UsersServiceImplements implements UsersService {
 
     private final UsersRepository _usersRepository;
 
-    @Autowired
     public UsersServiceImplements(UsersRepository usersRepository) {
         _usersRepository = usersRepository;
     }
@@ -30,8 +29,8 @@ public class UsersServiceImplements implements UsersService {
             throw new NotFoundException("user exists");
         }
 
-        BCryptPasswordEncoder encyptPassword = new BCryptPasswordEncoder();
-        var newPassword = encyptPassword.encode(userDto.getPassword());
+        BCryptPasswordEncoder encryptPassword = new BCryptPasswordEncoder();
+        String newPassword = encryptPassword.encode(userDto.getPassword());
 
         User user = new User();
         user.setName(userDto.getName());
