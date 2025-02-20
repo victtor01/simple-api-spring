@@ -6,6 +6,7 @@ import com.delivery.demo.core.application.interfaces.AreasService;
 import com.delivery.demo.core.domain.Area;
 import com.delivery.demo.core.domain.User;
 import com.delivery.demo.infra.config.errors.NotFoundException;
+import com.delivery.demo.infra.config.errors.UnauthorizedException;
 import com.delivery.demo.infra.repositories.AreasRepository;
 import com.delivery.demo.infra.repositories.UsersRepository;
 import org.springframework.stereotype.Service;
@@ -26,29 +27,24 @@ public class AreasServiceImplements implements AreasService {
     }
 
     @Override
-    @Transactional
     public Area create(CreateAreaDTO createAreaDTO, UUID userId) {
-        try {
-            String name = createAreaDTO.getName();
+        var user = usersRepository.findById(userId).orElseThrow(() -> {
+            throw new NotFoundException("user not found to create a new area!");
+        });
 
-            var user = usersRepository.findById(userId).orElseThrow(() -> {
-                throw new NotFoundException("user not found to create a new area!");
-            });
+        String name = createAreaDTO.getName();
 
-            Area area = Area.builder()
-                    .items(new ArrayList<>())
-                    .name(name).user(user).build();
+        areasRepository.findOneByName(name).ifPresent(area -> {
+            throw new UnauthorizedException("Área já existe no banco de dados.");
+        });
 
-            Area created = this.areasRepository.save(area);
+        Area area = Area.builder().items(new ArrayList<>()).name(name).user(user).build();
+        Area created = this.areasRepository.save(area);
 
-            return created;
-        } catch (Exception e) {
-            throw new RuntimeException("error in create a new area!");
-        }
+        return created;
     }
 
     @Override
-    @Transactional
     public List<Area> findAll(UUID userId) {
         try {
             List<Area> areas = this.areasRepository.findAllByUserId(userId);

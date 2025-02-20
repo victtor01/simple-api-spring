@@ -1,5 +1,6 @@
 package com.delivery.demo.infra.api.controllers;
 
+import com.delivery.demo.core.utils.CookieKeys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,7 @@ public class AuthController {
     public ResponseEntity<AuthDTO> authenticate(@RequestBody LoginDTO loginDTO) {
         String token = authService.authenticateAndGenerateToken(loginDTO.getEmail(), loginDTO.getPassword());
 
-        ResponseCookie cookie = ResponseCookie.from("__access_token", token)
+        ResponseCookie cookie = ResponseCookie.from(CookieKeys.ACCESS_TOKEN, token)
                 .httpOnly(true)
                 .secure(false)
                 .path("/")
@@ -40,6 +41,6 @@ public class AuthController {
 
     @GetMapping()
     public ResponseEntity<String> MyInformations() {
-        return ResponseEntity.status(HttpStatus.OK).body("example");
+        return ResponseEntity.status(HttpStatus.OK).body("THIS IS EXAMPLE");
     }
 }

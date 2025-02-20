@@ -33,7 +33,10 @@ public class AreasController {
         UUID userId = authenticationUtils.getId();
 
         Area area = areasService.create(createAreaDTO, userId);
-        AreaDTO responseArea = AreaDTO.builder().name(area.getName()).id(area.getId()).build();
+        AreaDTO responseArea = AreaDTO.builder()
+                .name(area.getName())
+                .id(area.getId())
+                .build();
 
         return ResponseEntity.status(HttpStatus.OK).body(responseArea);
     }
@@ -43,7 +46,9 @@ public class AreasController {
         UUID userId = authenticationUtils.getId();
         List<Area> areas = this.areasService.findAll(userId);
 
-        List<AreaDTO> areaDTOS = areas.stream().map(area -> new AreaDTO(area.getId(), area.getName())).toList();
+        List<AreaDTO> areaDTOS = areas.stream()
+                .map(area -> new AreaDTO(area.getId(), area.getName()))
+                .toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(areaDTOS);
     }

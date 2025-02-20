@@ -9,5 +9,5 @@ import lombok.Setter;
 @Setter
 @Builder
 public class CreateAreaDTO {
-    public String name;
+    private String name;
 }

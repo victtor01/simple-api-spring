@@ -23,25 +23,15 @@ public class JwtServiceImplements implements JwtService {
     private long jwtExpiration;
 
     @Override
-    public String generateToken(Map<String, String> extraClaims, String email) {
-        return Jwts
-                .builder()
-                .claims().add(extraClaims)
-                .and()
-                .subject(email)
-                .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
-                .signWith(getSignInKey())
-                .compact();
+    public String generateToken(Map<String, String> extraClaims, String subject) {
+        return generateToken(extraClaims, subject, jwtExpiration);
     }
 
     @Override
-    public String generateToken(Map<String, String> extraClaims, String userName, long expireInterval) {
-        return Jwts
-                .builder()
-                .claims().add(extraClaims)
-                .and()
-                .subject(userName)
+    public String generateToken(Map<String, String> extraClaims, String subject, long expireInterval) {
+        return Jwts.builder()
+                .claims().add(extraClaims).and()
+                .subject(subject)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expireInterval))
                 .signWith(getSignInKey())

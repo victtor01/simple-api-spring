@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import com.delivery.demo.core.application.anums.UserRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority(UserRole.USER.getRole()));
     }
 
     @Override

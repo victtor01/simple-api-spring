@@ -1,6 +1,7 @@
 package com.delivery.demo.infra.api.middlewares;
 
 import com.delivery.demo.infra.config.errors.NotFoundException;
+import com.delivery.demo.infra.config.errors.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,7 +18,13 @@ public class GlobalError {
 
     @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<ErrorResponse> handleResourceNotFound(NotFoundException ex) {
-        ErrorResponse error = new ErrorResponse("RESOURCE_NOT_FOUND", ex.getMessage(), ex.getStatusCode());
+        ErrorResponse error = new ErrorResponse(ex.getType(), ex.getMessage(), ex.getStatusCode());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({UnauthorizedException.class})
+    public ResponseEntity<ErrorResponse> handleUnauthorized(UnauthorizedException ex) {
+        ErrorResponse error = new ErrorResponse(ex.getType(), ex.getMessage(), ex.getStatusCode());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 }
