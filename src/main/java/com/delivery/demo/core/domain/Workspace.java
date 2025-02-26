@@ -12,8 +12,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "areas")
-public class Area {
+@Table(name = "workspaces")
+public class Workspace {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,13 +22,15 @@ public class Area {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = true)
+    private String description;
+
     @ManyToOne()
     @JoinColumn(name = "userId")
     private User user;
 
     @OneToMany()
     private List<Item> items;
-
 }
 
 

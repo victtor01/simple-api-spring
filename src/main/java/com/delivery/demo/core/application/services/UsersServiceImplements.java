@@ -1,14 +1,13 @@
 package com.delivery.demo.core.application.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.delivery.demo.core.application.dtos.UserDTO;
-import com.delivery.demo.infra.repositories.UsersRepository;
 import com.delivery.demo.core.application.interfaces.UsersService;
 import com.delivery.demo.core.domain.User;
 import com.delivery.demo.infra.config.errors.NotFoundException;
+import com.delivery.demo.infra.repositories.UsersRepository;
 
 @Service
 public class UsersServiceImplements implements UsersService {

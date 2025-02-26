@@ -25,6 +25,6 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(name = "listId")
-    private Area list;
+    private Workspace list;
 
 }

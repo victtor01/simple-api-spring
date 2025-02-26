@@ -1,5 +1,7 @@
 package com.delivery.demo.core.application.interfaces;
 
+import com.delivery.demo.core.application.records.JwtTokensDTO;
+
 public interface AuthService {
-    String authenticateAndGenerateToken(String email, String password);
+    JwtTokensDTO authenticateAndGenerateTokens(String email, String password);
 }

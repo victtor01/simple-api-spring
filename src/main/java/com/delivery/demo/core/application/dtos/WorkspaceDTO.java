@@ -1,6 +1,5 @@
 package com.delivery.demo.core.application.dtos;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.UUID;
@@ -10,7 +9,7 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AreaDTO {
+public class WorkspaceDTO {
     private UUID id;
     private String name;
 }

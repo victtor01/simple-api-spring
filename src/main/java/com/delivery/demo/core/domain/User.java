@@ -35,7 +35,7 @@ public class User implements UserDetails {
     private String password;
 
     @OneToMany()
-    List<Area> areas = new ArrayList<>();
+    List<Workspace> areas = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
